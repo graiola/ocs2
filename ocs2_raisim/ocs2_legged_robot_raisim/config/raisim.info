@@ -16,18 +16,18 @@ rollout
 
     orderedJointNames
     {
-       [0] LF_HAA
-       [1] LF_HFE
-       [2] LF_KFE
-       [3] RF_HAA
-       [4] RF_HFE
-       [5] RF_KFE
-       [6] LH_HAA
-       [7] LH_HFE
-       [8] LH_KFE
-       [9] RH_HAA
-      [10] RH_HFE
-      [11] RH_KFE
+       [0] lf_haa_joint
+       [1] lf_hfe_joint
+       [2] lf_kfe_joint
+       [3] rf_haa_joint
+       [4] rf_hfe_joint
+       [5] rf_kfe_joint
+       [6] lh_haa_joint
+       [7] lh_hfe_joint
+       [8] lh_kfe_joint
+       [9] rh_haa_joint
+      [10] rh_hfe_joint
+      [11] rh_kfe_joint
     }
 
     controlMode 1 ; 0: FORCE_AND_TORQUE, 1: PD_PLUS_FEEDFORWARD_TORQUE

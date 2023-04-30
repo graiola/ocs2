@@ -72,12 +72,12 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        LF_HAA:
+        lf_haa_joint:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        LF_HFE:
+        lf_hfe_joint:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -86,7 +86,7 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        LF_KFE:
+        lf_kfe_joint:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -119,12 +119,12 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        LH_HAA:
+        lh_haa_joint:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        LH_HFE:
+        lh_hfe_joint:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -133,7 +133,7 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        LH_KFE:
+        lh_kfe_joint:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -167,12 +167,12 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        RF_HAA:
+        rf_haa_joint:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        RF_HFE:
+        rf_hfe_joint:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -181,7 +181,7 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        RF_KFE:
+        rf_kfe_joint:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -214,12 +214,12 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        RH_HAA:
+        rh_haa_joint:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        RH_HFE:
+        rh_hfe_joint:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -228,7 +228,7 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        RH_KFE:
+        rh_kfe_joint:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -439,13 +439,13 @@ Visualization Manager:
         All Enabled: false
         LF_FOOT:
           Value: false
-        LF_HAA:
+        lf_haa_joint:
           Value: false
-        LF_HFE:
+        lf_hfe_joint:
           Value: false
         LF_HIP:
           Value: false
-        LF_KFE:
+        lf_kfe_joint:
           Value: false
         LF_SHANK:
           Value: false
@@ -459,13 +459,13 @@ Visualization Manager:
           Value: false
         LH_FOOT:
           Value: false
-        LH_HAA:
+        lh_haa_joint:
           Value: false
-        LH_HFE:
+        lh_hfe_joint:
           Value: false
         LH_HIP:
           Value: false
-        LH_KFE:
+        lh_kfe_joint:
           Value: false
         LH_SHANK:
           Value: false
@@ -479,13 +479,13 @@ Visualization Manager:
           Value: false
         RF_FOOT:
           Value: false
-        RF_HAA:
+        rf_haa_joint:
           Value: false
-        RF_HFE:
+        rf_hfe_joint:
           Value: false
         RF_HIP:
           Value: false
-        RF_KFE:
+        rf_kfe_joint:
           Value: false
         RF_SHANK:
           Value: false
@@ -499,13 +499,13 @@ Visualization Manager:
           Value: false
         RH_FOOT:
           Value: false
-        RH_HAA:
+        rh_haa_joint:
           Value: false
-        RH_HFE:
+        rh_hfe_joint:
           Value: false
         RH_HIP:
           Value: false
-        RH_KFE:
+        rh_kfe_joint:
           Value: false
         RH_SHANK:
           Value: false
@@ -604,46 +604,46 @@ Visualization Manager:
       Tree:
         odom:
           base:
-            LF_HAA:
+            lf_haa_joint:
               LF_HIP:
                 LF_hip_fixed:
-                  LF_HFE:
+                  lf_hfe_joint:
                     LF_THIGH:
                       LF_thigh_fixed:
-                        LF_KFE:
+                        lf_kfe_joint:
                           LF_SHANK:
                             LF_shank_fixed:
                               LF_FOOT:
                                 {}
-            LH_HAA:
+            lh_haa_joint:
               LH_HIP:
                 LH_hip_fixed:
-                  LH_HFE:
+                  lh_hfe_joint:
                     LH_THIGH:
                       LH_thigh_fixed:
-                        LH_KFE:
+                        lh_kfe_joint:
                           LH_SHANK:
                             LH_shank_fixed:
                               LH_FOOT:
                                 {}
-            RF_HAA:
+            rf_haa_joint:
               RF_HIP:
                 RF_hip_fixed:
-                  RF_HFE:
+                  rf_hfe_joint:
                     RF_THIGH:
                       RF_thigh_fixed:
-                        RF_KFE:
+                        rf_kfe_joint:
                           RF_SHANK:
                             RF_shank_fixed:
                               RF_FOOT:
                                 {}
-            RH_HAA:
+            rh_haa_joint:
               RH_HIP:
                 RH_hip_fixed:
-                  RH_HFE:
+                  rh_hfe_joint:
                     RH_THIGH:
                       RH_thigh_fixed:
-                        RH_KFE:
+                        rh_kfe_joint:
                           RH_SHANK:
                             RH_shank_fixed:
                               RH_FOOT:

@@ -140,10 +140,10 @@ void LeggedRobotVisualizer::publishObservation(ros::Time timeStamp, const System
 /******************************************************************************************************/
 void LeggedRobotVisualizer::publishJointTransforms(ros::Time timeStamp, const vector_t& jointAngles) const {
   if (robotStatePublisherPtr_ != nullptr) {
-    std::map<std::string, scalar_t> jointPositions{{"LF_HAA", jointAngles[0]}, {"LF_HFE", jointAngles[1]},  {"LF_KFE", jointAngles[2]},
-                                                   {"LH_HAA", jointAngles[3]}, {"LH_HFE", jointAngles[4]},  {"LH_KFE", jointAngles[5]},
-                                                   {"RF_HAA", jointAngles[6]}, {"RF_HFE", jointAngles[7]},  {"RF_KFE", jointAngles[8]},
-                                                   {"RH_HAA", jointAngles[9]}, {"RH_HFE", jointAngles[10]}, {"RH_KFE", jointAngles[11]}};
+    std::map<std::string, scalar_t> jointPositions{{"lf_haa_joint", jointAngles[0]}, {"lf_hfe_joint", jointAngles[1]},  {"lf_kfe_joint", jointAngles[2]},
+                                                   {"lh_haa_joint", jointAngles[3]}, {"lh_hfe_joint", jointAngles[4]},  {"lh_kfe_joint", jointAngles[5]},
+                                                   {"rf_haa_joint", jointAngles[6]}, {"rf_hfe_joint", jointAngles[7]},  {"rf_kfe_joint", jointAngles[8]},
+                                                   {"rh_haa_joint", jointAngles[9]}, {"rh_hfe_joint", jointAngles[10]}, {"rh_kfe_joint", jointAngles[11]}};
     robotStatePublisherPtr_->publishTransforms(jointPositions, timeStamp);
   }
 }
