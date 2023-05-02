@@ -59,39 +59,41 @@ namespace legged_robot {
 /******************************************************************************************************/
 LeggedRobotVisualizer::LeggedRobotVisualizer(PinocchioInterface pinocchioInterface, CentroidalModelInfo centroidalModelInfo,
                                              const PinocchioEndEffectorKinematics& endEffectorKinematics, ros::NodeHandle& nodeHandle,
+                                             const std::string& tfPrefix,
                                              scalar_t maxUpdateFrequency)
     : pinocchioInterface_(std::move(pinocchioInterface)),
       centroidalModelInfo_(std::move(centroidalModelInfo)),
       endEffectorKinematicsPtr_(endEffectorKinematics.clone()),
       lastTime_(std::numeric_limits<scalar_t>::lowest()),
-      minPublishTimeDifference_(1.0 / maxUpdateFrequency) {
+      minPublishTimeDifference_(1.0 / maxUpdateFrequency),
+      tfPrefix_(tfPrefix){
   endEffectorKinematicsPtr_->setPinocchioInterface(pinocchioInterface_);
-  launchVisualizerNode(nodeHandle);
+  launchVisualizerNode(nodeHandle,tfPrefix);
 };
 
 /******************************************************************************************************/
 /******************************************************************************************************/
 /******************************************************************************************************/
-void LeggedRobotVisualizer::launchVisualizerNode(ros::NodeHandle& nodeHandle) {
-  costDesiredBasePositionPublisher_ = nodeHandle.advertise<visualization_msgs::Marker>("/legged_robot/desiredBaseTrajectory", 1);
+void LeggedRobotVisualizer::launchVisualizerNode(ros::NodeHandle& nodeHandle, const std::string& tfPrefix) {
+  costDesiredBasePositionPublisher_ = nodeHandle.advertise<visualization_msgs::Marker>("desiredBaseTrajectory", 1);
   costDesiredFeetPositionPublishers_.resize(centroidalModelInfo_.numThreeDofContacts);
-  costDesiredFeetPositionPublishers_[0] = nodeHandle.advertise<visualization_msgs::Marker>("/legged_robot/desiredFeetTrajectory/LF", 1);
-  costDesiredFeetPositionPublishers_[1] = nodeHandle.advertise<visualization_msgs::Marker>("/legged_robot/desiredFeetTrajectory/RF", 1);
-  costDesiredFeetPositionPublishers_[2] = nodeHandle.advertise<visualization_msgs::Marker>("/legged_robot/desiredFeetTrajectory/LH", 1);
-  costDesiredFeetPositionPublishers_[3] = nodeHandle.advertise<visualization_msgs::Marker>("/legged_robot/desiredFeetTrajectory/RH", 1);
-  stateOptimizedPublisher_ = nodeHandle.advertise<visualization_msgs::MarkerArray>("/legged_robot/optimizedStateTrajectory", 1);
-  currentStatePublisher_ = nodeHandle.advertise<visualization_msgs::MarkerArray>("/legged_robot/currentState", 1);
+  costDesiredFeetPositionPublishers_[0] = nodeHandle.advertise<visualization_msgs::Marker>("desiredFeetTrajectory/LF", 1);
+  costDesiredFeetPositionPublishers_[1] = nodeHandle.advertise<visualization_msgs::Marker>("desiredFeetTrajectory/RF", 1);
+  costDesiredFeetPositionPublishers_[2] = nodeHandle.advertise<visualization_msgs::Marker>("desiredFeetTrajectory/LH", 1);
+  costDesiredFeetPositionPublishers_[3] = nodeHandle.advertise<visualization_msgs::Marker>("desiredFeetTrajectory/RH", 1);
+  stateOptimizedPublisher_ = nodeHandle.advertise<visualization_msgs::MarkerArray>("optimizedStateTrajectory", 1);
+  currentStatePublisher_ = nodeHandle.advertise<visualization_msgs::MarkerArray>("currentState", 1);
 
   // Load URDF model
   urdf::Model urdfModel;
-  if (!urdfModel.initParam("legged_robot_description")) {
-    std::cerr << "[LeggedRobotVisualizer] Could not read URDF from: \"legged_robot_description\"" << std::endl;
+  if (!urdfModel.initParam("robot_description")) {
+    std::cerr << "[LeggedRobotVisualizer] Could not read URDF from: \"robot_description\"" << std::endl;
   } else {
     KDL::Tree kdlTree;
     kdl_parser::treeFromUrdfModel(urdfModel, kdlTree);
 
     robotStatePublisherPtr_.reset(new robot_state_publisher::RobotStatePublisher(kdlTree));
-    robotStatePublisherPtr_->publishFixedTransforms(true);
+    robotStatePublisherPtr_->publishFixedTransforms(tfPrefix,true);
   }
 }
 
@@ -140,11 +142,12 @@ void LeggedRobotVisualizer::publishObservation(ros::Time timeStamp, const System
 /******************************************************************************************************/
 void LeggedRobotVisualizer::publishJointTransforms(ros::Time timeStamp, const vector_t& jointAngles) const {
   if (robotStatePublisherPtr_ != nullptr) {
+    // FIXME load joint names from SRDF/URDF or pinocchio?
     std::map<std::string, scalar_t> jointPositions{{"lf_haa_joint", jointAngles[0]}, {"lf_hfe_joint", jointAngles[1]},  {"lf_kfe_joint", jointAngles[2]},
                                                    {"lh_haa_joint", jointAngles[3]}, {"lh_hfe_joint", jointAngles[4]},  {"lh_kfe_joint", jointAngles[5]},
                                                    {"rf_haa_joint", jointAngles[6]}, {"rf_hfe_joint", jointAngles[7]},  {"rf_kfe_joint", jointAngles[8]},
                                                    {"rh_haa_joint", jointAngles[9]}, {"rh_hfe_joint", jointAngles[10]}, {"rh_kfe_joint", jointAngles[11]}};
-    robotStatePublisherPtr_->publishTransforms(jointPositions, timeStamp);
+    robotStatePublisherPtr_->publishTransforms(jointPositions, timeStamp, tfPrefix_);
   }
 }
 
@@ -155,7 +158,7 @@ void LeggedRobotVisualizer::publishBaseTransform(ros::Time timeStamp, const vect
   if (robotStatePublisherPtr_ != nullptr) {
     geometry_msgs::TransformStamped baseToWorldTransform;
     baseToWorldTransform.header = getHeaderMsg(frameId_, timeStamp);
-    baseToWorldTransform.child_frame_id = "base";
+    baseToWorldTransform.child_frame_id = "base_link"; // FIXME hardcoded base name?
 
     const Eigen::Quaternion<scalar_t> q_world_base = getQuaternionFromEulerAnglesZyx(vector3_t(basePose.tail<3>()));
     baseToWorldTransform.transform.rotation = getOrientationMsg(q_world_base);

@@ -64,13 +64,14 @@ class LeggedRobotVisualizer : public DummyObserver {
    */
   LeggedRobotVisualizer(PinocchioInterface pinocchioInterface, CentroidalModelInfo centroidalModelInfo,
                         const PinocchioEndEffectorKinematics& endEffectorKinematics, ros::NodeHandle& nodeHandle,
+                        const std::string& tfPrefix = "",
                         scalar_t maxUpdateFrequency = 100.0);
 
   ~LeggedRobotVisualizer() override = default;
 
   void update(const SystemObservation& observation, const PrimalSolution& primalSolution, const CommandData& command) override;
 
-  void launchVisualizerNode(ros::NodeHandle& nodeHandle);
+  void launchVisualizerNode(ros::NodeHandle& nodeHandle, const std::string& tfPrefix);
 
   void publishTrajectory(const std::vector<SystemObservation>& system_observation_array, scalar_t speed = 1.0);
 
@@ -104,6 +105,7 @@ class LeggedRobotVisualizer : public DummyObserver {
 
   scalar_t lastTime_;
   scalar_t minPublishTimeDifference_;
+  std::string tfPrefix_;
 };
 
 }  // namespace legged_robot
