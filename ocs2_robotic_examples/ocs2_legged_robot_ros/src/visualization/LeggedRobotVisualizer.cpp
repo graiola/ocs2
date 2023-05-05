@@ -158,7 +158,7 @@ void LeggedRobotVisualizer::publishBaseTransform(ros::Time timeStamp, const vect
   if (robotStatePublisherPtr_ != nullptr) {
     geometry_msgs::TransformStamped baseToWorldTransform;
     baseToWorldTransform.header = getHeaderMsg(frameId_, timeStamp);
-    baseToWorldTransform.child_frame_id = tfPrefix_+"/base_link"; // FIXME hardcoded base name?
+    baseToWorldTransform.child_frame_id = tfPrefix_+"/"+baseName_;
     const Eigen::Quaternion<scalar_t> q_world_base = getQuaternionFromEulerAnglesZyx(vector3_t(basePose.tail<3>()));
     baseToWorldTransform.transform.rotation = getOrientationMsg(q_world_base);
     baseToWorldTransform.transform.translation = getVectorMsg(basePose.head<3>());

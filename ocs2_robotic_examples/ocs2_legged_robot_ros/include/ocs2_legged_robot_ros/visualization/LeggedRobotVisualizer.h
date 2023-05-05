@@ -47,6 +47,7 @@ class LeggedRobotVisualizer : public DummyObserver {
  public:
   /** Visualization settings (publicly available) */
   std::string frameId_ = "odom";              // Frame name all messages are published in
+  std::string baseName_ = "base_link";        // Base link name
   scalar_t footMarkerDiameter_ = 0.03;        // Size of the spheres at the feet
   scalar_t footAlphaWhenLifted_ = 0.3;        // Alpha value when a foot is lifted.
   scalar_t forceScale_ = 1000.0;              // Vector scale in N/m
