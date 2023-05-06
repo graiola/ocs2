@@ -54,7 +54,7 @@ void RosReferenceManager::subscribe(ros::NodeHandle& nodeHandle) {
     auto modeSchedule = ros_msg_conversions::readModeScheduleMsg(*msg);
     referenceManagerPtr_->setModeSchedule(std::move(modeSchedule));
   };
-  modeScheduleSubscriber_ = nodeHandle.subscribe<ocs2_msgs::mode_schedule>(topicPrefix_ + "_mode_schedule", 1, modeScheduleCallback);
+  modeScheduleSubscriber_ = nodeHandle.subscribe<ocs2_msgs::mode_schedule>(topicPrefix_ + "_mpc_mode_schedule", 1, modeScheduleCallback);
 
   // TargetTrajectories
   auto targetTrajectoriesCallback = [this](const ocs2_msgs::mpc_target_trajectories::ConstPtr& msg) {
