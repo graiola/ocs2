@@ -142,11 +142,10 @@ void LeggedRobotVisualizer::publishObservation(ros::Time timeStamp, const System
 /******************************************************************************************************/
 void LeggedRobotVisualizer::publishJointTransforms(ros::Time timeStamp, const vector_t& jointAngles) const {
   if (robotStatePublisherPtr_ != nullptr) {
-    // FIXME load joint names from SRDF/URDF or pinocchio?
-    std::map<std::string, scalar_t> jointPositions{{"lf_haa_joint", jointAngles[0]}, {"lf_hfe_joint", jointAngles[1]},  {"lf_kfe_joint", jointAngles[2]},
-                                                   {"lh_haa_joint", jointAngles[3]}, {"lh_hfe_joint", jointAngles[4]},  {"lh_kfe_joint", jointAngles[5]},
-                                                   {"rf_haa_joint", jointAngles[6]}, {"rf_hfe_joint", jointAngles[7]},  {"rf_kfe_joint", jointAngles[8]},
-                                                   {"rh_haa_joint", jointAngles[9]}, {"rh_hfe_joint", jointAngles[10]}, {"rh_kfe_joint", jointAngles[11]}};
+    std::map<std::string, scalar_t> jointPositions;
+    auto jointNames = pinocchioInterface_.getModel().names;
+    for(unsigned int i=0;i<jointAngles.size();i++)
+      jointPositions[jointNames[i+2]] = jointAngles[i]; // Skip universe and root joint
     robotStatePublisherPtr_->publishTransforms(jointPositions, timeStamp, tfPrefix_);
   }
 }

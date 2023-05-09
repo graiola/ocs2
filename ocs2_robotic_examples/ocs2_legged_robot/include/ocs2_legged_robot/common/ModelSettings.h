@@ -51,7 +51,7 @@ struct ModelSettings {
   std::vector<std::string> jointNames{"lf_haa_joint", "lf_hfe_joint", "lf_kfe_joint", "rf_haa_joint", "rf_hfe_joint", "rf_kfe_joint",
                                       "lh_haa_joint", "lh_hfe_joint", "lh_kfe_joint", "rh_haa_joint", "rh_hfe_joint", "rh_kfe_joint"};
   std::vector<std::string> contactNames6DoF{};
-  std::vector<std::string> contactNames3DoF{"LF_FOOT", "RF_FOOT", "LH_FOOT", "RH_FOOT"};
+  std::vector<std::string> contactNames3DoF{"lf_foot", "rf_foot", "lh_foot", "rh_foot"};
 };
 
 ModelSettings loadModelSettings(const std::string& filename, const std::string& fieldName = "model_settings", bool verbose = "true");
