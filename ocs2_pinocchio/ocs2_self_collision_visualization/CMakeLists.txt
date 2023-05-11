@@ -45,6 +45,7 @@ catkin_package(
     ${CATKIN_PACKAGE_DEPENDENCIES}
   DEPENDS
     pinocchio
+    hpp-fcl
 )
 
 ###########
