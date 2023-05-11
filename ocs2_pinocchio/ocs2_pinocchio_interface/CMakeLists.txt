@@ -13,13 +13,15 @@ find_package(catkin REQUIRED COMPONENTS
   ${CATKIN_PACKAGE_DEPENDENCIES}
 )
 
-find_package(PkgConfig REQUIRED)
-pkg_check_modules(pinocchio REQUIRED pinocchio)
+#find_package(PkgConfig REQUIRED)
+#pkg_check_modules(pinocchio REQUIRED pinocchio)
 
 find_package(Eigen3 3.3 REQUIRED NO_MODULE)
 
 # Add pinocchio configurations
-include(cmake/pinocchio_config.cmake)
+#include(cmake/pinocchio_config.cmake)
+
+find_package(pinocchio REQUIRED)
 
 ###################################
 ## catkin specific configuration ##

@@ -22,10 +22,13 @@ find_package(catkin REQUIRED COMPONENTS
   ${CATKIN_PACKAGE_DEPENDENCIES}
 )
 
-find_package(PkgConfig REQUIRED)
-pkg_check_modules(pinocchio REQUIRED pinocchio)
-pkg_check_modules(hpp-fcl REQUIRED hpp-fcl)
+#find_package(PkgConfig REQUIRED)
+#pkg_check_modules(pinocchio REQUIRED pinocchio)
+#pkg_check_modules(hpp-fcl REQUIRED hpp-fcl)
 # requires liboctomap-dev and libassimp-dev
+
+find_package(pinocchio REQUIRED)
+find_package(hpp-fcl REQUIRED)
 
 find_package(Eigen3 3.3 REQUIRED NO_MODULE)
 
@@ -79,6 +82,7 @@ add_dependencies(${PROJECT_NAME}
 target_link_libraries(${PROJECT_NAME}
   ${catkin_LIBRARIES}
   ${pinocchio_LIBRARIES}
+  ${hpp-fcl_LIBRARIES}
 )
 target_compile_options(${PROJECT_NAME} PUBLIC ${FLAGS})
 

@@ -23,5 +23,6 @@
   <depend>ocs2_pinocchio_interface</depend>
   <depend>ocs2_centroidal_model</depend>
   <depend>pinocchio</depend>
+  <depend>hpp-fcl</depend>
 
 </package>
