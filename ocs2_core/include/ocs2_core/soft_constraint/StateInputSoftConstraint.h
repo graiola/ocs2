@@ -54,6 +54,15 @@ namespace ocs2 {
  */
 class StateInputSoftConstraint final : public StateInputCost {
  public:
+
+  /**
+   * Constructor.
+   * @note This allows a varying number of constraints and uses the same penalty function for each constraint.
+   * @param [in] constraintPtr: A pointer to the constraint which will be enforced as soft constraints.
+   * @param [in] penaltyFunction: A pointer to the penalty function on the constraint.
+   */
+  StateInputSoftConstraint(std::unique_ptr<StateInputConstraint>& constraintPtr, std::unique_ptr<PenaltyBase> penaltyFunction, bool ref);
+
   /**
    * Constructor.
    * @param [in] constraintPtr: A pointer to the constraint which will be enforced as soft constraints.

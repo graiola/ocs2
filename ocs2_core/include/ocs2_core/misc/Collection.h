@@ -64,6 +64,14 @@ class Collection {
   void add(std::string name, std::unique_ptr<T> term);
 
   /**
+   * Adds a term to the collection, and transfer ownership to the collection
+   * The provided name must be unique and is later used to access the cost term.
+   * @param name: Name stored along with the term.
+   * @param term: Term to be added.
+   */
+  void add_ref(std::string name, std::unique_ptr<T>& term);
+
+  /**
    * Erases a term from the collection.
    *
    * @param name: Name of the term.
@@ -123,6 +131,20 @@ void Collection<T>::clear() {
 /******************************************************************************************************/
 template <typename T>
 void Collection<T>::add(std::string name, std::unique_ptr<T> term) {
+  const size_t nextIndex = terms_.size();
+  auto info = termNameMap_.emplace(std::move(name), nextIndex);
+  if (info.second) {
+    terms_.push_back(std::move(term));
+  } else {
+    throw std::runtime_error(std::string("[Collection::add] Term with name \"") + info.first->first + "\" already exists");
+  }
+}
+
+/******************************************************************************************************/
+/******************************************************************************************************/
+/******************************************************************************************************/
+template <typename T>
+void Collection<T>::add_ref(std::string name, std::unique_ptr<T>& term) {
   const size_t nextIndex = terms_.size();
   auto info = termNameMap_.emplace(std::move(name), nextIndex);
   if (info.second) {
