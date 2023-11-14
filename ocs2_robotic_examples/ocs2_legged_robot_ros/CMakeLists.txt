@@ -80,6 +80,7 @@ add_library(${PROJECT_NAME}
   src/gait/GaitKeyboardPublisher.cpp
   src/gait/GaitReceiver.cpp
   src/visualization/LeggedRobotVisualizer.cpp
+  src/terrain/TerrainEstimationReceiver.cpp
 )
 add_dependencies(${PROJECT_NAME}
   ${${PROJECT_NAME}_EXPORTED_TARGETS}
